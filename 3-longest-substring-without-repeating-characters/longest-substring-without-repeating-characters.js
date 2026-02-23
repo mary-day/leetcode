@@ -4,18 +4,19 @@
  */
 var lengthOfLongestSubstring = function(s) {
     let longestSubstringCount = 0;
-    let longestSubstring = '';
     for (let i = 0; i < s.length; i++) {
-        longestSubstring = s[i];
-        for (let j = i+1; j < s.length; j++) {
-            if (longestSubstring.includes(s[j])) {
+        const seen = new Set(); // O(1) lookup time for repeating characters
+        let currentLength = 0;
+        for (let j = i; j < s.length; j++) {
+            if (seen.has(s[j])) {
                 break;
             } else {
-                longestSubstring += s[j];
+                seen.add(s[j]);
+                currentLength++;
             }
         }
-        if (longestSubstring.length > longestSubstringCount) {
-            longestSubstringCount = longestSubstring.length;
+        if (currentLength > longestSubstringCount) {
+            longestSubstringCount = currentLength;
         }
     }
     return longestSubstringCount;
