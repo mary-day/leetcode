@@ -3,21 +3,21 @@
  * @return {number}
  */
 var lengthOfLongestSubstring = function(s) {
-    let longestSubstringCount = 0;
-    for (let i = 0; i < s.length; i++) {
-        const seen = new Set(); // O(1) lookup time for repeating characters
-        let currentLength = 0;
-        for (let j = i; j < s.length; j++) {
-            if (seen.has(s[j])) {
-                break;
-            } else {
-                seen.add(s[j]);
-                currentLength++;
-            }
+    const seen = new Set(); // O(1) lookup, add, and delete
+    let left = 0;
+    let best = 0;
+
+    for (let right = 0; right < s.length; right++) {
+        while (seen.has(s[right])) {
+            seen.delete(s[left]);
+            left++;
         }
-        if (currentLength > longestSubstringCount) {
-            longestSubstringCount = currentLength;
+
+        seen.add(s[right]);
+        if (right - left + 1 > best) {
+            best = right - left + 1;
         }
     }
-    return longestSubstringCount;
+
+    return best;
 };
