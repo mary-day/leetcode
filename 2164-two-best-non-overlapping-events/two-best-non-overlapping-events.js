@@ -48,5 +48,5 @@ var maxTwoEvents = function(events) {
         }
         answer = Math.max(answer, total);
     }
-    return answer;
+    return answer; // O(n log n) time + O(n) space
 };
